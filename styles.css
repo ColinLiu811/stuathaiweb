@@ -1,0 +1,813 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    padding: 2rem 0;
+    color: white;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.dark-mode-toggle {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 0.75rem;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.dark-mode-toggle:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: scale(1.1);
+}
+
+.dark-mode-toggle:active {
+    transform: scale(0.95);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.logo i {
+    font-size: 2.5rem;
+    color: #ffd700;
+}
+
+.logo h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.tagline {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    font-weight: 300;
+}
+
+/* Main Content */
+.main-content {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+/* Section Headers */
+.section-header {
+    text-align: center;
+    padding: 2rem;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    border-bottom: 1px solid #e1e8ed;
+}
+
+.section-header h2 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.section-header p {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+}
+
+/* Form Styles */
+.schedule-form {
+    padding: 2rem;
+}
+
+.form-group {
+    margin-bottom: 2.5rem;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 15px;
+    border-left: 4px solid #667eea;
+}
+
+.form-group h3 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.form-group h3 i {
+    color: #667eea;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.form-field {
+    margin-bottom: 1.5rem;
+}
+
+.form-field label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #2c3e50;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid #e1e8ed;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-field textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Checkbox Group */
+.checkbox-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.checkbox-label:hover {
+    background-color: #f8f9fa;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: auto;
+    margin: 0;
+}
+
+/* Generate Button */
+.generate-btn {
+    width: 100%;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 15px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.generate-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+}
+
+.generate-btn:active {
+    transform: translateY(0);
+}
+
+/* Loading Section */
+.loading-section {
+    text-align: center;
+    padding: 4rem 2rem;
+}
+
+.loading-spinner {
+    font-size: 3rem;
+    color: #667eea;
+    margin-bottom: 1rem;
+}
+
+.loading-section h3 {
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+}
+
+.loading-section p {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+}
+
+/* Results Section */
+.results-section {
+    padding: 2rem;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.btn-secondary {
+    padding: 0.5rem 1rem;
+    background: #f8f9fa;
+    color: #2c3e50;
+    border: 2px solid #e1e8ed;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-secondary:hover {
+    background: #e9ecef;
+    border-color: #667eea;
+}
+
+/* Schedule Tabs */
+.schedule-tabs {
+    display: flex;
+    border-bottom: 2px solid #e1e8ed;
+    margin-bottom: 2rem;
+    overflow-x: auto;
+}
+
+.tab-btn {
+    padding: 1rem 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #7f8c8d;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.tab-btn.active {
+    color: #667eea;
+    border-bottom-color: #667eea;
+}
+
+.tab-btn:hover {
+    color: #2c3e50;
+}
+
+/* Tab Content */
+.tab-content {
+    min-height: 400px;
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+/* Schedule Grid */
+.schedule-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.day-column {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 1rem;
+    min-height: 200px;
+}
+
+.day-header {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    text-align: center;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e1e8ed;
+}
+
+.schedule-item {
+    background: white;
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    border-radius: 8px;
+    border-left: 4px solid #667eea;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.schedule-item.workout {
+    border-left-color: #e74c3c;
+}
+
+.schedule-item.study {
+    border-left-color: #3498db;
+}
+
+.schedule-item.practice {
+    border-left-color: #f39c12;
+}
+
+.schedule-item.game {
+    border-left-color: #9b59b6;
+}
+
+.schedule-item.rest {
+    border-left-color: #95a5a6;
+}
+
+.schedule-time {
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 0.9rem;
+}
+
+.schedule-title {
+    color: #2c3e50;
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+}
+
+.schedule-description {
+    color: #7f8c8d;
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+}
+
+/* Workout Plans */
+.workout-plans {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.workout-card {
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 1.5rem;
+    border-left: 4px solid #e74c3c;
+}
+
+.workout-card h4 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.exercise-list {
+    list-style: none;
+}
+
+.exercise-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e1e8ed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.exercise-list li:last-child {
+    border-bottom: none;
+}
+
+/* Study Plans */
+.study-plans {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.study-card {
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 1.5rem;
+    border-left: 4px solid #3498db;
+}
+
+.study-card h4 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.study-tips {
+    list-style: none;
+}
+
+.study-tips li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e1e8ed;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+.study-tips li:last-child {
+    border-bottom: none;
+}
+
+.study-tips li::before {
+    content: "📚";
+    margin-top: 0.2rem;
+}
+
+/* Success Tips */
+.success-tips {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.tip-card {
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 1.5rem;
+    border-left: 4px solid #27ae60;
+}
+
+.tip-card h4 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tip-card h4 i {
+    color: #27ae60;
+}
+
+.tip-list {
+    list-style: none;
+}
+
+.tip-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e1e8ed;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+.tip-list li:last-child {
+    border-bottom: none;
+}
+
+.tip-list li::before {
+    content: "💡";
+    margin-top: 0.2rem;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 2rem 0;
+    color: white;
+    opacity: 0.8;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 10px;
+    }
+    
+    .header-content {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .logo h1 {
+        font-size: 2rem;
+    }
+    
+    .dark-mode-toggle {
+        width: 45px;
+        height: 45px;
+        font-size: 1rem;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .schedule-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+    }
+    
+    .schedule-tabs {
+        flex-direction: column;
+    }
+    
+    .tab-btn {
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .logo h1 {
+        font-size: 1.8rem;
+    }
+    
+    .section-header h2 {
+        font-size: 2rem;
+    }
+    
+    .form-group {
+        padding: 1rem;
+    }
+    
+    .schedule-form {
+        padding: 1rem;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Utility Classes */
+.text-center {
+    text-align: center;
+}
+
+.mb-1 {
+    margin-bottom: 1rem;
+}
+
+.mb-2 {
+    margin-bottom: 2rem;
+}
+
+.mt-1 {
+    margin-top: 1rem;
+}
+
+.mt-2 {
+    margin-top: 2rem;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: #e0e0e0;
+}
+
+body.dark-mode .main-content {
+    background: #2c3e50;
+    color: #e0e0e0;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+body.dark-mode .section-header {
+    background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+    border-bottom: 1px solid #34495e;
+}
+
+body.dark-mode .section-header h2 {
+    color: #ecf0f1;
+}
+
+body.dark-mode .section-header p {
+    color: #bdc3c7;
+}
+
+body.dark-mode .form-group {
+    background: #34495e;
+    border-left: 4px solid #3498db;
+}
+
+body.dark-mode .form-group h3 {
+    color: #ecf0f1;
+}
+
+body.dark-mode .form-field label {
+    color: #ecf0f1;
+}
+
+body.dark-mode .form-field input,
+body.dark-mode .form-field select,
+body.dark-mode .form-field textarea {
+    background: #2c3e50;
+    border: 2px solid #34495e;
+    color: #ecf0f1;
+}
+
+body.dark-mode .form-field input:focus,
+body.dark-mode .form-field select:focus,
+body.dark-mode .form-field textarea:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+body.dark-mode .checkbox-label {
+    color: #ecf0f1;
+}
+
+body.dark-mode .checkbox-label:hover {
+    background-color: #34495e;
+}
+
+body.dark-mode .generate-btn {
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+}
+
+body.dark-mode .generate-btn:hover {
+    box-shadow: 0 10px 25px rgba(52, 152, 219, 0.3);
+}
+
+body.dark-mode .loading-section h3 {
+    color: #ecf0f1;
+}
+
+body.dark-mode .loading-section p {
+    color: #bdc3c7;
+}
+
+body.dark-mode .btn-secondary {
+    background: #34495e;
+    color: #ecf0f1;
+    border: 2px solid #34495e;
+}
+
+body.dark-mode .btn-secondary:hover {
+    background: #2c3e50;
+    border-color: #3498db;
+}
+
+body.dark-mode .schedule-tabs {
+    border-bottom: 2px solid #34495e;
+}
+
+body.dark-mode .tab-btn {
+    color: #bdc3c7;
+}
+
+body.dark-mode .tab-btn.active {
+    color: #3498db;
+    border-bottom-color: #3498db;
+}
+
+body.dark-mode .tab-btn:hover {
+    color: #ecf0f1;
+}
+
+body.dark-mode .day-column {
+    background: #34495e;
+}
+
+body.dark-mode .day-header {
+    color: #ecf0f1;
+    border-bottom: 2px solid #2c3e50;
+}
+
+body.dark-mode .schedule-item {
+    background: #2c3e50;
+    color: #ecf0f1;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+body.dark-mode .schedule-time {
+    color: #3498db;
+}
+
+body.dark-mode .schedule-title {
+    color: #ecf0f1;
+}
+
+body.dark-mode .schedule-description {
+    color: #bdc3c7;
+}
+
+body.dark-mode .workout-card,
+body.dark-mode .study-card,
+body.dark-mode .tip-card {
+    background: #34495e;
+}
+
+body.dark-mode .workout-card h4,
+body.dark-mode .study-card h4,
+body.dark-mode .tip-card h4 {
+    color: #ecf0f1;
+}
+
+body.dark-mode .exercise-list li,
+body.dark-mode .study-tips li,
+body.dark-mode .tip-list li {
+    color: #ecf0f1;
+    border-bottom: 1px solid #2c3e50;
+}
+
+body.dark-mode .footer {
+    color: #bdc3c7;
+}
+
+/* Dark mode toggle icon animation */
+.dark-mode-toggle i {
+    transition: transform 0.3s ease;
+}
+
+body.dark-mode .dark-mode-toggle i {
+    transform: rotate(180deg);
+}
+
+/* Dark mode transition */
+body,
+body.dark-mode .main-content,
+body.dark-mode .form-group,
+body.dark-mode .schedule-item,
+body.dark-mode .workout-card,
+body.dark-mode .study-card,
+body.dark-mode .tip-card {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}

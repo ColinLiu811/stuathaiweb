@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StuAth.ai - AI Scheduler for Student Athletes</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-dumbbell"></i>
+                    <h1>StuAth.ai</h1>
+                </div>
+                <button class="dark-mode-toggle" id="darkModeToggle" title="Toggle Dark Mode">
+                    <i class="fas fa-moon" id="darkModeIcon"></i>
+                </button>
+            </div>
+            <p class="tagline">AI-Powered Scheduling for Student Athletes</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Input Section -->
+            <section class="input-section" id="inputSection">
+                <div class="section-header">
+                    <h2>Tell Us About Your Schedule</h2>
+                    <p>Help us create the perfect schedule by providing your academic and athletic commitments</p>
+                </div>
+
+                <form id="scheduleForm" class="schedule-form">
+                    <!-- Personal Info -->
+                    <div class="form-group">
+                        <h3><i class="fas fa-user"></i> Personal Information</h3>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label for="name">Name</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-field">
+                                <label for="sport">Primary Sport</label>
+                                <select id="sport" name="sport" required>
+                                    <option value="">Select Sport</option>
+                                    <option value="basketball">Basketball</option>
+                                    <option value="football">Football</option>
+                                    <option value="soccer">Soccer</option>
+                                    <option value="tennis">Tennis</option>
+                                    <option value="swimming">Swimming</option>
+                                    <option value="track">Track & Field</option>
+                                    <option value="baseball">Baseball</option>
+                                    <option value="volleyball">Volleyball</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Academic Schedule -->
+                    <div class="form-group">
+                        <h3><i class="fas fa-graduation-cap"></i> Academic Schedule</h3>
+                        <div class="form-field">
+                            <label for="classes">Classes (one per line)</label>
+                            <textarea id="classes" name="classes" placeholder="e.g., Math 101 - Mon/Wed/Fri 9:00 AM&#10;English 201 - Tue/Thu 10:30 AM&#10;Physics 301 - Mon/Wed 2:00 PM" rows="4"></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label for="studyHours">Weekly Study Hours</label>
+                                <input type="number" id="studyHours" name="studyHours" min="0" max="50" value="20">
+                            </div>
+                            <div class="form-field">
+                                <label for="academicLevel">Academic Level</label>
+                                <select id="academicLevel" name="academicLevel">
+                                    <option value="highschool">High School</option>
+                                    <option value="undergraduate">Undergraduate</option>
+                                    <option value="graduate">Graduate</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Athletic Schedule -->
+                    <div class="form-group">
+                        <h3><i class="fas fa-trophy"></i> Athletic Schedule</h3>
+                        <div class="form-field">
+                            <label for="practices">Practice Schedule (one per line)</label>
+                            <textarea id="practices" name="practices" placeholder="e.g., Monday 4:00 PM - 6:00 PM&#10;Wednesday 4:00 PM - 6:00 PM&#10;Friday 3:00 PM - 5:00 PM" rows="3"></textarea>
+                        </div>
+                        <div class="form-field">
+                            <label for="games">Games/Competitions (one per line)</label>
+                            <textarea id="games" name="games" placeholder="e.g., Saturday 2:00 PM vs. State University&#10;Next Saturday 1:00 PM vs. Tech College" rows="3"></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label for="trainingLevel">Training Intensity</label>
+                                <select id="trainingLevel" name="trainingLevel">
+                                    <option value="recreational">Recreational</option>
+                                    <option value="competitive">Competitive</option>
+                                    <option value="elite">Elite/Professional</option>
+                                </select>
+                            </div>
+                            <div class="form-field">
+                                <label for="goals">Athletic Goals</label>
+                                <input type="text" id="goals" name="goals" placeholder="e.g., Make varsity team, improve speed">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Preferences -->
+                    <div class="form-group">
+                        <h3><i class="fas fa-cog"></i> Preferences</h3>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label for="wakeTime">Preferred Wake Time</label>
+                                <input type="time" id="wakeTime" name="wakeTime" value="07:00">
+                            </div>
+                            <div class="form-field">
+                                <label for="sleepTime">Preferred Sleep Time</label>
+                                <input type="time" id="sleepTime" name="sleepTime" value="23:00">
+                            </div>
+                        </div>
+                        <div class="form-field">
+                            <label for="focusAreas">Focus Areas (select all that apply)</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="focusAreas" value="academic">
+                                    <span>Academic Excellence</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="focusAreas" value="athletic">
+                                    <span>Athletic Performance</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="focusAreas" value="recovery">
+                                    <span>Recovery & Wellness</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="focusAreas" value="social">
+                                    <span>Social Life</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="generate-btn">
+                        <i class="fas fa-magic"></i>
+                        Generate My Schedule
+                    </button>
+                </form>
+            </section>
+
+            <!-- Loading Section -->
+            <section class="loading-section" id="loadingSection" style="display: none;">
+                <div class="loading-spinner">
+                    <i class="fas fa-dumbbell fa-spin"></i>
+                </div>
+                <h3>Creating Your Perfect Schedule...</h3>
+                <p>Our AI is analyzing your commitments and generating personalized recommendations</p>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section" id="resultsSection" style="display: none;">
+                <div class="section-header">
+                    <h2>Your Personalized Schedule</h2>
+                    <div class="action-buttons">
+                        <button class="btn-secondary" onclick="exportSchedule()">
+                            <i class="fas fa-download"></i> Export
+                        </button>
+                        <button class="btn-secondary" onclick="regenerateSchedule()">
+                            <i class="fas fa-refresh"></i> Regenerate
+                        </button>
+                    </div>
+                </div>
+
+                <div class="schedule-tabs">
+                    <button class="tab-btn active" onclick="showTab('weekly')">Weekly Overview</button>
+                    <button class="tab-btn" onclick="showTab('workouts')">Workout Plans</button>
+                    <button class="tab-btn" onclick="showTab('study')">Study Plans</button>
+                    <button class="tab-btn" onclick="showTab('tips')">Success Tips</button>
+                </div>
+
+                <div class="tab-content">
+                    <div id="weeklyTab" class="tab-pane active">
+                        <div class="schedule-grid" id="weeklySchedule"></div>
+                    </div>
+                    <div id="workoutsTab" class="tab-pane">
+                        <div class="workout-plans" id="workoutPlans"></div>
+                    </div>
+                    <div id="studyTab" class="tab-pane">
+                        <div class="study-plans" id="studyPlans"></div>
+                    </div>
+                    <div id="tipsTab" class="tab-pane">
+                        <div class="success-tips" id="successTips"></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2025 StuAth.ai - Empowering Student Athletes</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
