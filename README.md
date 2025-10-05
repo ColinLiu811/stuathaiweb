@@ -9,11 +9,11 @@ StuAth.ai is an intelligent scheduling application designed specifically for stu
 
 ## 🚀 Live Demo
 
-[Try StuAth.ai Live Demo](https://yourusername.github.io/stuathaibeta1/)
+[Try StuAth.ai Live Demo](https://yourusername.github.io/stuathaibeta1/) (Currently not active)
 
 ## 📱 Screenshots
 
-![StuAth.ai Interface](https://via.placeholder.com/800x400/667eea/ffffff?text=StuAth.ai+Interface)
+![StuAth.ai Interface](https://via.placeholder.com/800x400/667eea/ffffff?text=StuAth.ai+Interface) (currently not active)
 *Modern, responsive interface with dark mode support*
 
 ## Features
