@@ -2,7 +2,7 @@
 
 Thank you for your interest in contributing to StuAth.ai! This document provides guidelines and information for contributors.
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 - Modern web browser (Chrome, Firefox, Safari, Edge)
@@ -48,7 +48,7 @@ stuathaibeta1/
 └── .gitignore          # Git ignore rules
 ```
 
-## 🎯 Areas for Contribution
+## Areas for Contribution
 
 ### High Priority
 - **Bug Fixes**: Report and fix any issues you encounter
@@ -69,7 +69,7 @@ stuathaibeta1/
 - **Animations**: Smooth transitions and micro-interactions
 - **Responsive Design**: Better tablet and mobile layouts
 
-## 🐛 Reporting Issues
+## Reporting Issues
 
 ### Before Submitting
 1. Check if the issue already exists
@@ -85,7 +85,7 @@ When reporting issues, please include:
 - **Browser/OS**: Browser version and operating system
 - **Screenshots**: If applicable, include screenshots
 
-## 🔧 Submitting Changes
+## Submitting Changes
 
 ### Pull Request Process
 
@@ -126,7 +126,7 @@ Examples:
 - `Fix: Mobile responsive layout issues`
 - `Update: README with new installation instructions`
 
-## 🧪 Testing
+## Testing
 
 ### Manual Testing
 - Test on multiple browsers (Chrome, Firefox, Safari, Edge)
@@ -142,7 +142,7 @@ Examples:
 4. **Responsive Design**: Test on various screen sizes
 5. **Data Persistence**: Verify localStorage functionality
 
-## 📝 Documentation
+## Documentation
 
 ### Code Documentation
 - Comment complex algorithms and functions
@@ -154,7 +154,7 @@ Examples:
 - Add usage examples and screenshots
 - Document any new configuration options
 
-## 🎨 Design Guidelines
+## Design Guidelines
 
 ### Color Scheme
 - **Light Mode**: Professional blues and grays
@@ -171,7 +171,7 @@ Examples:
 - **Breakpoints**: 480px, 768px, 1024px
 - **Touch Targets**: Minimum 44px for touch interactions
 
-## 🤝 Community Guidelines
+## Community Guidelines
 
 ### Code of Conduct
 - Be respectful and inclusive
@@ -199,18 +199,18 @@ Examples:
 - Follow-up reviews as needed
 - Merge when approved by maintainers
 
-## 🏆 Recognition
+## Recognition
 
 Contributors will be recognized in:
 - README.md contributors section
 - Release notes for significant contributions
 - GitHub contributor statistics
 
-## 📞 Getting Help
+## Getting Help
 
 If you need help or have questions:
 - Open an issue for questions
 - Use GitHub Discussions for general discussion
 - Check existing issues and pull requests
 
-Thank you for contributing to StuAth.ai! Together, we can help student athletes excel both on and off the field! 🏆📚
+Thank you for contributing to StuAth.ai! Together, we can help student athletes excel both on and off the field!
