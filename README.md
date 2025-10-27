@@ -1,46 +1,46 @@
-# StuAth.ai - AI Scheduler for Student Athletes
+# StuAthAI - AI Scheduler for Student Athletes
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![GitHub stars](https://img.shields.io/github/stars/yourusername/stuathaibeta1.svg)](https://github.com/yourusername/stuathaibeta1/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/yourusername/stuathaibeta1.svg)](https://github.com/yourusername/stuathaibeta1/network)
 [![GitHub issues](https://img.shields.io/github/issues/yourusername/stuathaibeta1.svg)](https://github.com/yourusername/stuathaibeta1/issues)
 
-StuAth.ai is an intelligent scheduling application designed specifically for student athletes who need to balance their academic commitments with their athletic training and competitions.
+StuAthAI is an intelligent scheduling application designed specifically for student athletes who need to balance their academic commitments with their athletic training and competitions.
 
-## 🚀 Live Demo
+## Live Demo
 
 [Try StuAth.ai Live Demo](https://yourusername.github.io/stuathaibeta1/) (Currently not active)
 
-## 📱 Screenshots
+## Screenshots
 
-![StuAth.ai Interface](https://via.placeholder.com/800x400/667eea/ffffff?text=StuAth.ai+Interface) (currently not active)
+![StuAthAI Interface](https://via.placeholder.com/800x400/667eea/ffffff?text=StuAth.ai+Interface) (currently not active)
 *Modern, responsive interface with dark mode support*
 
 ## Features
 
-### 🎯 Core Functionality
-- **Smart Scheduling**: AI-powered algorithm that creates personalized weekly schedules
+### Core Functionality
+- **Smart Scheduling**: AI-like Algorithm that creates personalized weekly schedules
 - **Academic Integration**: Incorporates class schedules, study time, and academic goals
 - **Athletic Planning**: Manages practice schedules, games, and training sessions
 - **Workout Plans**: Generates sport-specific workout routines
 - **Study Strategies**: Provides tailored study plans based on academic level
 - **Success Tips**: Offers personalized advice for balancing student-athlete life
 
-### 🏃‍♂️ Athletic Features
+### Athletic Features
 - Support for multiple sports (Basketball, Football, Soccer, Tennis, Swimming, Track & Field, Baseball, Volleyball)
 - Training intensity levels (Recreational, Competitive, Elite)
 - Practice and game schedule management
 - Sport-specific workout recommendations
 - Recovery and wellness planning
 
-### 📚 Academic Features
+### Academic Features
 - Class schedule integration
 - Study time allocation
 - Academic level support (High School, Undergraduate, Graduate)
 - Study technique recommendations
 - Test preparation strategies
 
-### 💡 Smart Features
+### Smart Features
 - **Personalization**: Adapts to individual preferences and goals
 - **Time Management**: Optimizes daily schedules for maximum efficiency
 - **Data Persistence**: Saves user data locally for future sessions
@@ -69,7 +69,7 @@ StuAth.ai is an intelligent scheduling application designed specifically for stu
 
 2. **Generate Your Schedule**
    - Click "Generate My Schedule" to create your personalized plan
-   - The AI will analyze your commitments and create an optimized schedule
+   - The algorithm will analyze your commitments and create an optimized schedule
 
 3. **View Your Results**
    - **Weekly Overview**: See your complete weekly schedule
@@ -107,7 +107,7 @@ stuathaibeta1/
 - Manages schedule generation and display
 - Implements local storage functionality
 
-#### AI Scheduling Algorithm
+#### Scheduling Algorithm
 - Parses user input for classes, practices, and games
 - Allocates study time based on academic level and goals
 - Generates workout schedules based on sport and training level
@@ -175,7 +175,7 @@ This is a demonstration project. For production use, consider:
 - Integrating with real calendar APIs
 - Adding more sophisticated AI algorithms
 
-## 🤝 Contributing
+## Contributing
 
 We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
 
@@ -195,7 +195,7 @@ We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.
    ```
 4. **Open** `http://localhost:8000` in your browser
 
-## 📋 Roadmap
+## Roadmap
 
 - [ ] Calendar integration (Google Calendar, Outlook)
 - [ ] Mobile app development
@@ -206,28 +206,28 @@ We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.
 - [ ] PDF export functionality
 - [ ] Multi-language support
 
-## 🐛 Bug Reports & Feature Requests
+## Bug Reports & Feature Requests
 
-Found a bug or have a feature request? Please [open an issue](https://github.com/yourusername/stuathaibeta1/issues)!
+Found a bug or have a feature request? Please [open an issue](https://github.com/yourusername/stuathaibeta1/issues)
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - Student athletes who provided feedback and inspiration
 - Open source community for tools and libraries
 - Contributors who help improve the project
 
-## 📞 Support
+## Support
 
 - **Issues**: [GitHub Issues](https://github.com/yourusername/stuathaibeta1/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/yourusername/stuathaibeta1/discussions)
-- **Email**: support@stuath.ai (coming soon)
+- **Email**: john.6johnson66@gmail.com
 
 ---
 
-**StuAth.ai** - Empowering Student Athletes to Excel Both On and Off the Field! 🏆📚
+**StuAth.ai** - Empowering Student Athletes to Excel Both On and Off the Field
 
-Made with ❤️ for student athletes everywhere.
+Made with love for student athletes everywhere.
