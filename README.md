@@ -1,4 +1,4 @@
-# StuAthAI - AI Scheduler for Student Athletes
+# StuAthAI - Scheduler for Student Athletes
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![GitHub stars](https://img.shields.io/github/stars/yourusername/stuathaibeta1.svg)](https://github.com/yourusername/stuathaibeta1/stargazers)
