@@ -27,7 +27,7 @@ Thank you for your interest in contributing to StuAth.ai! This document provides
 
 4. **Open your browser** and navigate to `http://localhost:8000`
 
-## 🛠️ Development Guidelines
+## Development Guidelines
 
 ### Code Style
 - Use consistent indentation (2 spaces for HTML/CSS, 4 spaces for JavaScript)
