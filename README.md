@@ -6,6 +6,7 @@
 [![GitHub issues](https://img.shields.io/github/issues/yourusername/stuathaibeta1.svg)](https://github.com/yourusername/stuathaibeta1/issues)
 
 StuAthAI is an intelligent scheduling application designed specifically for student athletes who need to balance their academic commitments with their athletic training and competitions.
+Note: the stars, forks, and issues repoes are currently not active.
 
 ## Live Demo
 
