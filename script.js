@@ -6,8 +6,10 @@ class StuAthScheduler {
         this.workoutPlans = {};
         this.studyPlans = {};
         this.tips = {};
+        this.currentLanguage = 'en';
         this.initializeEventListeners();
         this.loadUserData();
+        this.loadLanguagePreference();
     }
 
     initializeEventListeners() {
@@ -20,6 +22,76 @@ class StuAthScheduler {
         document.getElementById('darkModeToggle').addEventListener('click', () => {
             this.toggleDarkMode();
         });
+
+        // Language selector
+        document.getElementById('languageSelector').addEventListener('change', (e) => {
+            this.changeLanguage(e.target.value);
+        });
+    }
+
+    // Translation functions
+    translate(key) {
+        return translations[this.currentLanguage]?.[key] || translations['en'][key] || key;
+    }
+
+    changeLanguage(lang) {
+        this.currentLanguage = lang;
+        localStorage.setItem('stuath_language', lang);
+        document.documentElement.lang = lang;
+        this.updatePageLanguage();
+    }
+
+    updatePageLanguage() {
+        // Update all elements with data-translate attribute
+        document.querySelectorAll('[data-translate]').forEach(element => {
+            const key = element.getAttribute('data-translate');
+            element.textContent = this.translate(key);
+        });
+
+        // Update placeholders
+        document.querySelectorAll('[data-placeholder]').forEach(element => {
+            const key = element.getAttribute('data-placeholder');
+            const translatedText = this.translate(key);
+            // Replace \n with actual newlines for textarea placeholders
+            element.placeholder = translatedText.replace(/\\n/g, '\n');
+        });
+
+        // Update select options
+        document.querySelectorAll('select option[data-translate]').forEach(option => {
+            const key = option.getAttribute('data-translate');
+            option.textContent = this.translate(key);
+        });
+
+        // Update language selector options
+        const langSelector = document.getElementById('languageSelector');
+        if (langSelector) {
+            langSelector.value = this.currentLanguage;
+        }
+
+        // Update dynamic content if schedule is already generated
+        if (this.schedule && Object.keys(this.schedule).length > 0) {
+            this.displaySchedule();
+            this.displayWorkoutPlans();
+            this.displayStudyPlans();
+            this.displaySuccessTips();
+        }
+    }
+
+    loadLanguagePreference() {
+        const savedLanguage = localStorage.getItem('stuath_language');
+        if (savedLanguage && translations[savedLanguage]) {
+            this.currentLanguage = savedLanguage;
+            document.getElementById('languageSelector').value = savedLanguage;
+        } else {
+            // Detect browser language
+            const browserLang = navigator.language.split('-')[0];
+            if (translations[browserLang]) {
+                this.currentLanguage = browserLang;
+                document.getElementById('languageSelector').value = browserLang;
+            }
+        }
+        document.documentElement.lang = this.currentLanguage;
+        this.updatePageLanguage();
     }
 
     handleFormSubmission() {
@@ -97,7 +169,15 @@ class StuAthScheduler {
     }
 
     createWeeklySchedule() {
-        const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+        const days = [
+            this.translate('monday'),
+            this.translate('tuesday'),
+            this.translate('wednesday'),
+            this.translate('thursday'),
+            this.translate('friday'),
+            this.translate('saturday'),
+            this.translate('sunday')
+        ];
         const schedule = {};
         
         days.forEach(day => {
@@ -112,7 +192,7 @@ class StuAthScheduler {
                     time: classSchedule.time,
                     title: classSchedule.title,
                     type: 'class',
-                    description: 'Academic class'
+                    description: this.translate('academicClass')
                 });
             }
         });
@@ -123,9 +203,9 @@ class StuAthScheduler {
             if (practiceSchedule) {
                 schedule[practiceSchedule.day].push({
                     time: practiceSchedule.time,
-                    title: 'Practice',
+                    title: this.translate('practice'),
                     type: 'practice',
-                    description: 'Team practice session'
+                    description: this.translate('teamPracticeSession')
                 });
             }
         });
@@ -138,7 +218,7 @@ class StuAthScheduler {
                     time: gameSchedule.time,
                     title: gameSchedule.title,
                     type: 'game',
-                    description: 'Competition/Game'
+                    description: this.translate('competitionGame')
                 });
             }
         });
@@ -174,8 +254,13 @@ class StuAthScheduler {
         
         if (dayMatch && timeMatch) {
             const dayMap = {
-                'Mon': 'Monday', 'Tue': 'Tuesday', 'Wed': 'Wednesday', 'Thu': 'Thursday',
-                'Fri': 'Friday', 'Sat': 'Saturday', 'Sun': 'Sunday'
+                'Mon': this.translate('monday'),
+                'Tue': this.translate('tuesday'),
+                'Wed': this.translate('wednesday'),
+                'Thu': this.translate('thursday'),
+                'Fri': this.translate('friday'),
+                'Sat': this.translate('saturday'),
+                'Sun': this.translate('sunday')
             };
             
             return {
@@ -190,11 +275,31 @@ class StuAthScheduler {
 
     parsePracticeSchedule(practice) {
         const timeMatch = practice.match(/(\d{1,2}:\d{2}\s*(AM|PM))/i);
-        const dayMatch = practice.match(/(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)/i);
+        
+        // Check for English day names (common in user input)
+        const englishDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+        const englishDayMatch = englishDays.find(day => practice.match(new RegExp(day, 'i')));
+        
+        // Also check for translated day names
+        const translatedDays = [
+            this.translate('monday'), this.translate('tuesday'), this.translate('wednesday'),
+            this.translate('thursday'), this.translate('friday'), this.translate('saturday'),
+            this.translate('sunday')
+        ];
+        const translatedDayMatch = translatedDays.find(day => practice.toLowerCase().includes(day.toLowerCase()));
+        
+        let dayMatch = null;
+        if (englishDayMatch) {
+            // Map English day to translated day
+            const dayIndex = englishDays.indexOf(englishDayMatch);
+            dayMatch = translatedDays[dayIndex];
+        } else if (translatedDayMatch) {
+            dayMatch = translatedDayMatch;
+        }
         
         if (timeMatch && dayMatch) {
             return {
-                day: dayMatch[0],
+                day: dayMatch,
                 time: timeMatch[1]
             };
         }
@@ -204,11 +309,31 @@ class StuAthScheduler {
 
     parseGameSchedule(game) {
         const timeMatch = game.match(/(\d{1,2}:\d{2}\s*(AM|PM))/i);
-        const dayMatch = game.match(/(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)/i);
+        
+        // Check for English day names (common in user input)
+        const englishDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+        const englishDayMatch = englishDays.find(day => game.match(new RegExp(day, 'i')));
+        
+        // Also check for translated day names
+        const translatedDays = [
+            this.translate('monday'), this.translate('tuesday'), this.translate('wednesday'),
+            this.translate('thursday'), this.translate('friday'), this.translate('saturday'),
+            this.translate('sunday')
+        ];
+        const translatedDayMatch = translatedDays.find(day => game.toLowerCase().includes(day.toLowerCase()));
+        
+        let dayMatch = null;
+        if (englishDayMatch) {
+            // Map English day to translated day
+            const dayIndex = englishDays.indexOf(englishDayMatch);
+            dayMatch = translatedDays[dayIndex];
+        } else if (translatedDayMatch) {
+            dayMatch = translatedDayMatch;
+        }
         
         if (timeMatch && dayMatch) {
             return {
-                day: dayMatch[0],
+                day: dayMatch,
                 time: timeMatch[1],
                 title: game
             };
@@ -226,38 +351,38 @@ class StuAthScheduler {
                 const time = this.generateStudyTime(day);
                 schedule[day].push({
                     time: time,
-                    title: 'Study Session',
+                    title: this.translate('studySession'),
                     type: 'study',
-                    description: `${Math.min(1.5, studyHoursPerDay)} hours of focused study`
+                    description: `${Math.min(1.5, studyHoursPerDay)} ${this.translate('hoursFocusedStudy')}`
                 });
             }
         });
     }
 
     addWorkoutSessions(schedule) {
-        const workoutDays = ['Monday', 'Wednesday', 'Friday'];
+        const workoutDays = [this.translate('monday'), this.translate('wednesday'), this.translate('friday')];
         
         workoutDays.forEach(day => {
             const time = this.generateWorkoutTime(day);
             schedule[day].push({
                 time: time,
-                title: 'Personal Workout',
+                title: this.translate('personalWorkout'),
                 type: 'workout',
-                description: 'Strength and conditioning training'
+                description: this.translate('strengthConditioning')
             });
         });
     }
 
     addRestSessions(schedule) {
         // Add rest days
-        const restDays = ['Sunday'];
+        const restDays = [this.translate('sunday')];
         
         restDays.forEach(day => {
             schedule[day].push({
                 time: '10:00 AM',
-                title: 'Rest & Recovery',
+                title: this.translate('restRecovery'),
                 type: 'rest',
-                description: 'Active recovery and relaxation'
+                description: this.translate('activeRecovery')
             });
         });
     }
@@ -325,9 +450,9 @@ class StuAthScheduler {
         const workouts = workoutTemplates[sport]?.[trainingLevel] || defaultWorkouts;
         
         return {
-            'Monday': workouts[Object.keys(workouts)[0]],
-            'Wednesday': workouts[Object.keys(workouts)[1]],
-            'Friday': workouts[Object.keys(workouts)[2]]
+            [this.translate('monday')]: workouts[Object.keys(workouts)[0]],
+            [this.translate('wednesday')]: workouts[Object.keys(workouts)[1]],
+            [this.translate('friday')]: workouts[Object.keys(workouts)[2]]
         };
     }
 
@@ -335,6 +460,8 @@ class StuAthScheduler {
         const academicLevel = this.userData.academicLevel;
         const studyHours = this.userData.studyHours;
         
+        // Note: Study plan content is kept in English for now as it's detailed content
+        // In a production app, these would be fully translated
         const studyStrategies = {
             highschool: {
                 'Time Management': [
@@ -378,33 +505,44 @@ class StuAthScheduler {
             }
         };
 
-        return studyStrategies[academicLevel] || studyStrategies.highschool;
+        const strategies = studyStrategies[academicLevel] || studyStrategies.highschool;
+        
+        // Translate category names
+        const translatedStrategies = {};
+        Object.keys(strategies).forEach(key => {
+            const translatedKey = this.translate(key.toLowerCase().replace(/\s+/g, '')) || key;
+            translatedStrategies[translatedKey] = strategies[key];
+        });
+        
+        return translatedStrategies;
     }
 
     generateSuccessTips() {
         const focusAreas = this.userData.focusAreas;
         const sport = this.userData.sport;
         
+        // Note: Tips content is kept in English for now as it's detailed content
+        // In a production app, these would be fully translated
         const tips = {
-            'Academic Excellence': [
+            academic: [
                 'Attend all classes and take detailed notes',
                 'Communicate regularly with professors and coaches',
                 'Use academic support services when needed',
                 'Stay organized with digital tools and planners'
             ],
-            'Athletic Performance': [
+            athletic: [
                 'Maintain consistent training schedule',
                 'Focus on proper nutrition and hydration',
                 'Get adequate sleep for recovery',
                 'Listen to your body and rest when needed'
             ],
-            'Recovery & Wellness': [
+            recovery: [
                 'Practice stress management techniques',
                 'Maintain social connections with teammates',
                 'Take time for hobbies and relaxation',
                 'Seek support when feeling overwhelmed'
             ],
-            'Social Life': [
+            social: [
                 'Build relationships with teammates and classmates',
                 'Participate in campus activities',
                 'Maintain friendships outside of sports',
@@ -434,13 +572,16 @@ class StuAthScheduler {
         const selectedTips = {};
         focusAreas.forEach(area => {
             if (tips[area]) {
-                selectedTips[area] = tips[area];
+                const translatedKey = this.translate(area === 'academic' ? 'academicExcellence' : 
+                                                    area === 'athletic' ? 'athleticPerformance' :
+                                                    area === 'recovery' ? 'recoveryWellness' : 'socialLife');
+                selectedTips[translatedKey] = tips[area];
             }
         });
 
         // Add sport-specific tips
         if (sportTips[sport]) {
-            selectedTips['Sport-Specific Tips'] = sportTips[sport];
+            selectedTips[this.translate('sportSpecificTips')] = sportTips[sport];
         }
 
         return selectedTips;
@@ -448,7 +589,15 @@ class StuAthScheduler {
 
     displaySchedule() {
         const scheduleContainer = document.getElementById('weeklySchedule');
-        const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+        const days = [
+            this.translate('monday'),
+            this.translate('tuesday'),
+            this.translate('wednesday'),
+            this.translate('thursday'),
+            this.translate('friday'),
+            this.translate('saturday'),
+            this.translate('sunday')
+        ];
         
         scheduleContainer.innerHTML = '';
         
@@ -489,7 +638,7 @@ class StuAthScheduler {
             workoutCard.className = 'workout-card';
             
             workoutCard.innerHTML = `
-                <h4>${day} Workout</h4>
+                <h4>${day} ${this.translate('workout')}</h4>
                 <ul class="exercise-list">
                     ${this.workoutPlans[day].map(exercise => `<li>${exercise}</li>`).join('')}
                 </ul>
@@ -540,14 +689,20 @@ class StuAthScheduler {
     }
 
     getCategoryIcon(category) {
-        const icons = {
-            'Academic Excellence': 'fas fa-graduation-cap',
-            'Athletic Performance': 'fas fa-trophy',
-            'Recovery & Wellness': 'fas fa-heart',
-            'Social Life': 'fas fa-users',
-            'Sport-Specific Tips': 'fas fa-dumbbell'
-        };
-        return icons[category] || 'fas fa-lightbulb';
+        // Match translated category names to icons
+        const categoryLower = category.toLowerCase();
+        if (categoryLower.includes('academic') || categoryLower.includes('académique') || categoryLower.includes('学术')) {
+            return 'fas fa-graduation-cap';
+        } else if (categoryLower.includes('athletic') || categoryLower.includes('athlétique') || categoryLower.includes('运动')) {
+            return 'fas fa-trophy';
+        } else if (categoryLower.includes('recovery') || categoryLower.includes('récupération') || categoryLower.includes('恢复')) {
+            return 'fas fa-heart';
+        } else if (categoryLower.includes('social') || categoryLower.includes('社交')) {
+            return 'fas fa-users';
+        } else if (categoryLower.includes('sport') || categoryLower.includes('运动')) {
+            return 'fas fa-dumbbell';
+        }
+        return 'fas fa-lightbulb';
     }
 
     loadUserData() {
