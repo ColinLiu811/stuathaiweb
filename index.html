@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="translations.js"></script>
 </head>
 <body>
     <div class="container">
@@ -17,11 +18,19 @@
                     <i class="fas fa-dumbbell"></i>
                     <h1>StuAth.ai</h1>
                 </div>
-                <button class="dark-mode-toggle" id="darkModeToggle" title="Toggle Dark Mode">
-                    <i class="fas fa-moon" id="darkModeIcon"></i>
-                </button>
+                <div class="header-controls">
+                    <select id="languageSelector" class="language-selector" title="Select Language">
+                        <option value="en">English</option>
+                        <option value="es">Español</option>
+                        <option value="fr">Français</option>
+                        <option value="zh">中文</option>
+                    </select>
+                    <button class="dark-mode-toggle" id="darkModeToggle" title="Toggle Dark Mode">
+                        <i class="fas fa-moon" id="darkModeIcon"></i>
+                    </button>
+                </div>
             </div>
-            <p class="tagline">AI-Powered Scheduling for Student Athletes</p>
+            <p class="tagline" data-translate="tagline">AI-Powered Scheduling for Student Athletes</p>
         </header>
 
         <!-- Main Content -->
@@ -29,32 +38,32 @@
             <!-- Input Section -->
             <section class="input-section" id="inputSection">
                 <div class="section-header">
-                    <h2>Tell Us About Your Schedule</h2>
-                    <p>Help us create the perfect schedule by providing your academic and athletic commitments</p>
+                    <h2 data-translate="tellUsAboutSchedule">Tell Us About Your Schedule</h2>
+                    <p data-translate="helpUsCreateSchedule">Help us create the perfect schedule by providing your academic and athletic commitments</p>
                 </div>
 
                 <form id="scheduleForm" class="schedule-form">
                     <!-- Personal Info -->
                     <div class="form-group">
-                        <h3><i class="fas fa-user"></i> Personal Information</h3>
+                        <h3><i class="fas fa-user"></i> <span data-translate="personalInformation">Personal Information</span></h3>
                         <div class="form-row">
                             <div class="form-field">
-                                <label for="name">Name</label>
+                                <label for="name" data-translate="name">Name</label>
                                 <input type="text" id="name" name="name" required>
                             </div>
                             <div class="form-field">
-                                <label for="sport">Primary Sport</label>
+                                <label for="sport" data-translate="primarySport">Primary Sport</label>
                                 <select id="sport" name="sport" required>
-                                    <option value="">Select Sport</option>
-                                    <option value="basketball">Basketball</option>
-                                    <option value="football">Football</option>
-                                    <option value="soccer">Soccer</option>
-                                    <option value="tennis">Tennis</option>
-                                    <option value="swimming">Swimming</option>
-                                    <option value="track">Track & Field</option>
-                                    <option value="baseball">Baseball</option>
-                                    <option value="volleyball">Volleyball</option>
-                                    <option value="other">Other</option>
+                                    <option value="" data-translate="selectSport">Select Sport</option>
+                                    <option value="basketball" data-translate="basketball">Basketball</option>
+                                    <option value="football" data-translate="football">Football</option>
+                                    <option value="soccer" data-translate="soccer">Soccer</option>
+                                    <option value="tennis" data-translate="tennis">Tennis</option>
+                                    <option value="swimming" data-translate="swimming">Swimming</option>
+                                    <option value="track" data-translate="trackField">Track & Field</option>
+                                    <option value="baseball" data-translate="baseball">Baseball</option>
+                                    <option value="volleyball" data-translate="volleyball">Volleyball</option>
+                                    <option value="other" data-translate="other">Other</option>
                                 </select>
                             </div>
                         </div>
@@ -62,22 +71,22 @@
 
                     <!-- Academic Schedule -->
                     <div class="form-group">
-                        <h3><i class="fas fa-graduation-cap"></i> Academic Schedule</h3>
+                        <h3><i class="fas fa-graduation-cap"></i> <span data-translate="academicSchedule">Academic Schedule</span></h3>
                         <div class="form-field">
-                            <label for="classes">Classes (one per line)</label>
-                            <textarea id="classes" name="classes" placeholder="e.g., Math 101 - Mon/Wed/Fri 9:00 AM&#10;English 201 - Tue/Thu 10:30 AM&#10;Physics 301 - Mon/Wed 2:00 PM" rows="4"></textarea>
+                            <label for="classes" data-translate="classes">Classes (one per line)</label>
+                            <textarea id="classes" name="classes" data-placeholder="classesPlaceholder" rows="4"></textarea>
                         </div>
                         <div class="form-row">
                             <div class="form-field">
-                                <label for="studyHours">Weekly Study Hours</label>
+                                <label for="studyHours" data-translate="weeklyStudyHours">Weekly Study Hours</label>
                                 <input type="number" id="studyHours" name="studyHours" min="0" max="50" value="20">
                             </div>
                             <div class="form-field">
-                                <label for="academicLevel">Academic Level</label>
+                                <label for="academicLevel" data-translate="academicLevel">Academic Level</label>
                                 <select id="academicLevel" name="academicLevel">
-                                    <option value="highschool">High School</option>
-                                    <option value="undergraduate">Undergraduate</option>
-                                    <option value="graduate">Graduate</option>
+                                    <option value="highschool" data-translate="highSchool">High School</option>
+                                    <option value="undergraduate" data-translate="undergraduate">Undergraduate</option>
+                                    <option value="graduate" data-translate="graduate">Graduate</option>
                                 </select>
                             </div>
                         </div>
@@ -85,62 +94,62 @@
 
                     <!-- Athletic Schedule -->
                     <div class="form-group">
-                        <h3><i class="fas fa-trophy"></i> Athletic Schedule</h3>
+                        <h3><i class="fas fa-trophy"></i> <span data-translate="athleticSchedule">Athletic Schedule</span></h3>
                         <div class="form-field">
-                            <label for="practices">Practice Schedule (one per line)</label>
-                            <textarea id="practices" name="practices" placeholder="e.g., Monday 4:00 PM - 6:00 PM&#10;Wednesday 4:00 PM - 6:00 PM&#10;Friday 3:00 PM - 5:00 PM" rows="3"></textarea>
+                            <label for="practices" data-translate="practiceSchedule">Practice Schedule (one per line)</label>
+                            <textarea id="practices" name="practices" data-placeholder="practicePlaceholder" rows="3"></textarea>
                         </div>
                         <div class="form-field">
-                            <label for="games">Games/Competitions (one per line)</label>
-                            <textarea id="games" name="games" placeholder="e.g., Saturday 2:00 PM vs. State University&#10;Next Saturday 1:00 PM vs. Tech College" rows="3"></textarea>
+                            <label for="games" data-translate="gamesCompetitions">Games/Competitions (one per line)</label>
+                            <textarea id="games" name="games" data-placeholder="gamesPlaceholder" rows="3"></textarea>
                         </div>
                         <div class="form-row">
                             <div class="form-field">
-                                <label for="trainingLevel">Training Intensity</label>
+                                <label for="trainingLevel" data-translate="trainingIntensity">Training Intensity</label>
                                 <select id="trainingLevel" name="trainingLevel">
-                                    <option value="recreational">Recreational</option>
-                                    <option value="competitive">Competitive</option>
-                                    <option value="elite">Elite/Professional</option>
+                                    <option value="recreational" data-translate="recreational">Recreational</option>
+                                    <option value="competitive" data-translate="competitive">Competitive</option>
+                                    <option value="elite" data-translate="elite">Elite/Professional</option>
                                 </select>
                             </div>
                             <div class="form-field">
-                                <label for="goals">Athletic Goals</label>
-                                <input type="text" id="goals" name="goals" placeholder="e.g., Make varsity team, improve speed">
+                                <label for="goals" data-translate="athleticGoals">Athletic Goals</label>
+                                <input type="text" id="goals" name="goals" data-placeholder="goalsPlaceholder">
                             </div>
                         </div>
                     </div>
 
                     <!-- Additional Preferences -->
                     <div class="form-group">
-                        <h3><i class="fas fa-cog"></i> Preferences</h3>
+                        <h3><i class="fas fa-cog"></i> <span data-translate="preferences">Preferences</span></h3>
                         <div class="form-row">
                             <div class="form-field">
-                                <label for="wakeTime">Preferred Wake Time</label>
+                                <label for="wakeTime" data-translate="preferredWakeTime">Preferred Wake Time</label>
                                 <input type="time" id="wakeTime" name="wakeTime" value="07:00">
                             </div>
                             <div class="form-field">
-                                <label for="sleepTime">Preferred Sleep Time</label>
+                                <label for="sleepTime" data-translate="preferredSleepTime">Preferred Sleep Time</label>
                                 <input type="time" id="sleepTime" name="sleepTime" value="23:00">
                             </div>
                         </div>
                         <div class="form-field">
-                            <label for="focusAreas">Focus Areas (select all that apply)</label>
+                            <label for="focusAreas" data-translate="focusAreas">Focus Areas (select all that apply)</label>
                             <div class="checkbox-group">
                                 <label class="checkbox-label">
                                     <input type="checkbox" name="focusAreas" value="academic">
-                                    <span>Academic Excellence</span>
+                                    <span data-translate="academicExcellence">Academic Excellence</span>
                                 </label>
                                 <label class="checkbox-label">
                                     <input type="checkbox" name="focusAreas" value="athletic">
-                                    <span>Athletic Performance</span>
+                                    <span data-translate="athleticPerformance">Athletic Performance</span>
                                 </label>
                                 <label class="checkbox-label">
                                     <input type="checkbox" name="focusAreas" value="recovery">
-                                    <span>Recovery & Wellness</span>
+                                    <span data-translate="recoveryWellness">Recovery & Wellness</span>
                                 </label>
                                 <label class="checkbox-label">
                                     <input type="checkbox" name="focusAreas" value="social">
-                                    <span>Social Life</span>
+                                    <span data-translate="socialLife">Social Life</span>
                                 </label>
                             </div>
                         </div>
@@ -148,7 +157,7 @@
 
                     <button type="submit" class="generate-btn">
                         <i class="fas fa-magic"></i>
-                        Generate My Schedule
+                        <span data-translate="generateSchedule">Generate My Schedule</span>
                     </button>
                 </form>
             </section>
@@ -158,29 +167,29 @@
                 <div class="loading-spinner">
                     <i class="fas fa-dumbbell fa-spin"></i>
                 </div>
-                <h3>Creating Your Perfect Schedule...</h3>
-                <p>Our AI is analyzing your commitments and generating personalized recommendations</p>
+                <h3 data-translate="creatingSchedule">Creating Your Perfect Schedule...</h3>
+                <p data-translate="aiAnalyzing">Our AI is analyzing your commitments and generating personalized recommendations</p>
             </section>
 
             <!-- Results Section -->
             <section class="results-section" id="resultsSection" style="display: none;">
                 <div class="section-header">
-                    <h2>Your Personalized Schedule</h2>
+                    <h2 data-translate="personalizedSchedule">Your Personalized Schedule</h2>
                     <div class="action-buttons">
                         <button class="btn-secondary" onclick="exportSchedule()">
-                            <i class="fas fa-download"></i> Export
+                            <i class="fas fa-download"></i> <span data-translate="export">Export</span>
                         </button>
                         <button class="btn-secondary" onclick="regenerateSchedule()">
-                            <i class="fas fa-refresh"></i> Regenerate
+                            <i class="fas fa-refresh"></i> <span data-translate="regenerate">Regenerate</span>
                         </button>
                     </div>
                 </div>
 
                 <div class="schedule-tabs">
-                    <button class="tab-btn active" onclick="showTab('weekly')">Weekly Overview</button>
-                    <button class="tab-btn" onclick="showTab('workouts')">Workout Plans</button>
-                    <button class="tab-btn" onclick="showTab('study')">Study Plans</button>
-                    <button class="tab-btn" onclick="showTab('tips')">Success Tips</button>
+                    <button class="tab-btn active" onclick="showTab('weekly')" data-translate="weeklyOverview">Weekly Overview</button>
+                    <button class="tab-btn" onclick="showTab('workouts')" data-translate="workoutPlans">Workout Plans</button>
+                    <button class="tab-btn" onclick="showTab('study')" data-translate="studyPlans">Study Plans</button>
+                    <button class="tab-btn" onclick="showTab('tips')" data-translate="successTips">Success Tips</button>
                 </div>
 
                 <div class="tab-content">
@@ -202,7 +211,7 @@
 
         <!-- Footer -->
         <footer class="footer">
-            <p>&copy; 2025 StuAthAI and Colin Liu</p>
+            <p data-translate="copyright">&copy; 2025 StuAthAI and Colin Liu</p>
         </footer>
     </div>
 
