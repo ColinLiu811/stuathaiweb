@@ -207,10 +207,6 @@ We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.
 - [ ] PDF export functionality
 - [ ] Multi-language support
 
-## Bug Reports & Feature Requests
-
-Found a bug or have a feature request? Please [open an issue](https://github.com/yourusername/stuathaibeta1/issues)
-
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
@@ -220,15 +216,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Student athletes who provided feedback and inspiration
 - Open source community for tools and libraries
 - Contributors who help improve the project
-
-## Support
-
-- **Issues**: [GitHub Issues](https://github.com/yourusername/stuathaibeta1/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/yourusername/stuathaibeta1/discussions)
-- **Email**: john.6johnson66@gmail.com
-
----
-
-**StuAth.ai** - Empowering Student Athletes to Excel Both On and Off the Field
-
-Made with love for student athletes everywhere.
