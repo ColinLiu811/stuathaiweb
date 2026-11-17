@@ -38,8 +38,10 @@ Thank you for your interest in contributing to StuAth.ai! This document provides
 ### File Structure
 ```
 stuathaibeta1/
-├── index.html          # Main HTML structure
-├── styles.css          # CSS styling and responsive design
+├── index.html          # Landing page (built with the taste skill's kit)
+├── app.html            # The schedule planner
+├── assets/             # The landing page's design kit (CSS, JS, UI fragments)
+├── styles.css          # Planner styling and responsive design
 ├── script.js           # JavaScript functionality and AI logic
 ├── demo.html           # Demo page
 ├── README.md           # Project documentation

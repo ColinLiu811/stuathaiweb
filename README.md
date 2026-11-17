@@ -56,7 +56,7 @@ Note: the stars, forks, and issues repoes are currently not active.
 
 ### Installation
 1. Clone or download the repository
-2. Open `index.html` in your web browser
+2. Open `index.html` in your web browser (the landing page), or `app.html` to go straight to the planner
 3. Start creating your personalized schedule!
 
 ### Usage
@@ -94,8 +94,10 @@ Note: the stars, forks, and issues repoes are currently not active.
 ### File Structure
 ```
 stuathaibeta1/
-├── index.html          # Main HTML structure
-├── styles.css          # CSS styling and responsive design
+├── index.html          # Landing page (built with the taste skill's kit)
+├── app.html            # The schedule planner
+├── assets/             # The landing page's design kit (CSS, JS, UI fragments)
+├── styles.css          # Planner styling and responsive design
 ├── script.js           # JavaScript functionality and AI logic
 └── README.md           # Project documentation
 ```

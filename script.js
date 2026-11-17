@@ -1,4 +1,9 @@
 // StuAth.ai - AI Scheduler for Student Athletes
+
+// The week is stored under these fixed keys and translated only when it is shown,
+// so switching language after generating keeps the week (it used to come back empty).
+const DAY_KEYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+
 class StuAthScheduler {
     constructor() {
         this.userData = {};
@@ -70,6 +75,9 @@ class StuAthScheduler {
 
         // Update dynamic content if schedule is already generated
         if (this.schedule && Object.keys(this.schedule).length > 0) {
+            // Study plan and tip headings are translated when generated; both are fixed lists, so rebuild them
+            this.studyPlans = this.generateStudyPlans();
+            this.tips = this.generateSuccessTips();
             this.displaySchedule();
             this.displayWorkoutPlans();
             this.displayStudyPlans();
@@ -169,32 +177,22 @@ class StuAthScheduler {
     }
 
     createWeeklySchedule() {
-        const days = [
-            this.translate('monday'),
-            this.translate('tuesday'),
-            this.translate('wednesday'),
-            this.translate('thursday'),
-            this.translate('friday'),
-            this.translate('saturday'),
-            this.translate('sunday')
-        ];
         const schedule = {};
-        
-        days.forEach(day => {
+
+        DAY_KEYS.forEach(day => {
             schedule[day] = [];
         });
 
-        // Add classes
+        // Add classes (one line can name several days: "Math 101 - Mon/Wed/Fri 9:00 AM")
         this.userData.classes.forEach(classInfo => {
-            const classSchedule = this.parseClassSchedule(classInfo);
-            if (classSchedule) {
+            this.parseClassSchedule(classInfo).forEach(classSchedule => {
                 schedule[classSchedule.day].push({
                     time: classSchedule.time,
                     title: classSchedule.title,
                     type: 'class',
-                    description: this.translate('academicClass')
+                    descriptionKey: 'academicClass'
                 });
-            }
+            });
         });
 
         // Add practices
@@ -203,9 +201,9 @@ class StuAthScheduler {
             if (practiceSchedule) {
                 schedule[practiceSchedule.day].push({
                     time: practiceSchedule.time,
-                    title: this.translate('practice'),
+                    titleKey: 'practice',
                     type: 'practice',
-                    description: this.translate('teamPracticeSession')
+                    descriptionKey: 'teamPracticeSession'
                 });
             }
         });
@@ -218,7 +216,7 @@ class StuAthScheduler {
                     time: gameSchedule.time,
                     title: gameSchedule.title,
                     type: 'game',
-                    description: this.translate('competitionGame')
+                    descriptionKey: 'competitionGame'
                 });
             }
         });
@@ -240,37 +238,28 @@ class StuAthScheduler {
         return schedule;
     }
 
+    // Returns one entry per day the line names, so "Mon/Wed/Fri" gives three (it used to give Monday only)
     parseClassSchedule(classInfo) {
         // Simple parsing - in a real app, this would be more sophisticated
         const parts = classInfo.split(' - ');
-        if (parts.length < 2) return null;
-        
+        if (parts.length < 2) return [];
+
         const title = parts[0];
-        const timeInfo = parts[1];
-        
-        // Extract day and time
-        const dayMatch = timeInfo.match(/(Mon|Tue|Wed|Thu|Fri|Sat|Sun)/i);
+        const timeInfo = parts.slice(1).join(' - ');
+
+        // Extract days and time
+        const dayMatches = timeInfo.match(/(Mon|Tue|Wed|Thu|Fri|Sat|Sun)/gi) || [];
         const timeMatch = timeInfo.match(/(\d{1,2}:\d{2}\s*(AM|PM))/i);
-        
-        if (dayMatch && timeMatch) {
-            const dayMap = {
-                'Mon': this.translate('monday'),
-                'Tue': this.translate('tuesday'),
-                'Wed': this.translate('wednesday'),
-                'Thu': this.translate('thursday'),
-                'Fri': this.translate('friday'),
-                'Sat': this.translate('saturday'),
-                'Sun': this.translate('sunday')
-            };
-            
-            return {
-                day: dayMap[dayMatch[1]],
-                time: timeMatch[1],
-                title: title
-            };
-        }
-        
-        return null;
+        if (!timeMatch) return [];
+
+        const dayMap = { mon: 'monday', tue: 'tuesday', wed: 'wednesday', thu: 'thursday', fri: 'friday', sat: 'saturday', sun: 'sunday' };
+        const days = [...new Set(dayMatches.map(d => dayMap[d.toLowerCase()]))];
+
+        return days.map(day => ({
+            day: day,
+            time: timeMatch[1],
+            title: title
+        }));
     }
 
     parsePracticeSchedule(practice) {
@@ -290,11 +279,9 @@ class StuAthScheduler {
         
         let dayMatch = null;
         if (englishDayMatch) {
-            // Map English day to translated day
-            const dayIndex = englishDays.indexOf(englishDayMatch);
-            dayMatch = translatedDays[dayIndex];
+            dayMatch = DAY_KEYS[englishDays.indexOf(englishDayMatch)];
         } else if (translatedDayMatch) {
-            dayMatch = translatedDayMatch;
+            dayMatch = DAY_KEYS[translatedDays.indexOf(translatedDayMatch)];
         }
         
         if (timeMatch && dayMatch) {
@@ -324,11 +311,9 @@ class StuAthScheduler {
         
         let dayMatch = null;
         if (englishDayMatch) {
-            // Map English day to translated day
-            const dayIndex = englishDays.indexOf(englishDayMatch);
-            dayMatch = translatedDays[dayIndex];
+            dayMatch = DAY_KEYS[englishDays.indexOf(englishDayMatch)];
         } else if (translatedDayMatch) {
-            dayMatch = translatedDayMatch;
+            dayMatch = DAY_KEYS[translatedDays.indexOf(translatedDayMatch)];
         }
         
         if (timeMatch && dayMatch) {
@@ -346,50 +331,56 @@ class StuAthScheduler {
         const studyHoursPerDay = this.userData.studyHours / 7;
         const studySessions = Math.ceil(studyHoursPerDay / 1.5); // 1.5 hour sessions
         
-        Object.keys(schedule).forEach(day => {
-            for (let i = 0; i < studySessions; i++) {
-                const time = this.generateStudyTime(day);
+        DAY_KEYS.forEach(day => {
+            this.generateStudyTimes(studySessions).forEach(time => {
                 schedule[day].push({
                     time: time,
-                    title: this.translate('studySession'),
+                    titleKey: 'studySession',
                     type: 'study',
-                    description: `${Math.min(1.5, studyHoursPerDay)} ${this.translate('hoursFocusedStudy')}`
+                    hours: Math.min(1.5, studyHoursPerDay),
+                    descriptionKey: 'hoursFocusedStudy'
                 });
-            }
+            });
         });
     }
 
     addWorkoutSessions(schedule) {
-        const workoutDays = [this.translate('monday'), this.translate('wednesday'), this.translate('friday')];
+        const workoutDays = ['monday', 'wednesday', 'friday'];
         
         workoutDays.forEach(day => {
             const time = this.generateWorkoutTime(day);
             schedule[day].push({
                 time: time,
-                title: this.translate('personalWorkout'),
+                titleKey: 'personalWorkout',
                 type: 'workout',
-                description: this.translate('strengthConditioning')
+                descriptionKey: 'strengthConditioning'
             });
         });
     }
 
     addRestSessions(schedule) {
         // Add rest days
-        const restDays = [this.translate('sunday')];
+        const restDays = ['sunday'];
         
         restDays.forEach(day => {
             schedule[day].push({
                 time: '10:00 AM',
-                title: this.translate('restRecovery'),
+                titleKey: 'restRecovery',
                 type: 'rest',
-                description: this.translate('activeRecovery')
+                descriptionKey: 'activeRecovery'
             });
         });
     }
 
-    generateStudyTime(day) {
+    // Different times for each session in a day (picking each one at random could repeat a time)
+    generateStudyTimes(count) {
         const times = ['8:00 AM', '2:00 PM', '7:00 PM', '9:00 PM'];
-        return times[Math.floor(Math.random() * times.length)];
+        const extra = ['12:00 PM', '5:00 PM'];   // only when a day needs more than four sessions (over 42 hours a week)
+        for (let i = times.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [times[i], times[j]] = [times[j], times[i]];
+        }
+        return [...times, ...extra].slice(0, count);
     }
 
     generateWorkoutTime(day) {
@@ -450,9 +441,9 @@ class StuAthScheduler {
         const workouts = workoutTemplates[sport]?.[trainingLevel] || defaultWorkouts;
         
         return {
-            [this.translate('monday')]: workouts[Object.keys(workouts)[0]],
-            [this.translate('wednesday')]: workouts[Object.keys(workouts)[1]],
-            [this.translate('friday')]: workouts[Object.keys(workouts)[2]]
+            monday: workouts[Object.keys(workouts)[0]],
+            wednesday: workouts[Object.keys(workouts)[1]],
+            friday: workouts[Object.keys(workouts)[2]]
         };
     }
 
@@ -510,7 +501,10 @@ class StuAthScheduler {
         // Translate category names
         const translatedStrategies = {};
         Object.keys(strategies).forEach(key => {
-            const translatedKey = this.translate(key.toLowerCase().replace(/\s+/g, '')) || key;
+            const lookup = key.toLowerCase().replace(/\s+/g, '');
+            // translate() hands back the lookup itself when no translation exists, so keep the readable heading then
+            const translated = this.translate(lookup);
+            const translatedKey = translated !== lookup ? translated : key;
             translatedStrategies[translatedKey] = strategies[key];
         });
         
@@ -589,15 +583,7 @@ class StuAthScheduler {
 
     displaySchedule() {
         const scheduleContainer = document.getElementById('weeklySchedule');
-        const days = [
-            this.translate('monday'),
-            this.translate('tuesday'),
-            this.translate('wednesday'),
-            this.translate('thursday'),
-            this.translate('friday'),
-            this.translate('saturday'),
-            this.translate('sunday')
-        ];
+        const days = DAY_KEYS;
         
         scheduleContainer.innerHTML = '';
         
@@ -607,7 +593,7 @@ class StuAthScheduler {
             
             const dayHeader = document.createElement('div');
             dayHeader.className = 'day-header';
-            dayHeader.textContent = day;
+            dayHeader.textContent = this.translate(day);
             dayColumn.appendChild(dayHeader);
             
             if (this.schedule[day]) {
@@ -617,8 +603,8 @@ class StuAthScheduler {
                     
                     scheduleItem.innerHTML = `
                         <div class="schedule-time">${item.time}</div>
-                        <div class="schedule-title">${item.title}</div>
-                        <div class="schedule-description">${item.description}</div>
+                        <div class="schedule-title">${this.itemTitle(item)}</div>
+                        <div class="schedule-description">${this.itemDescription(item)}</div>
                     `;
                     
                     dayColumn.appendChild(scheduleItem);
@@ -627,6 +613,17 @@ class StuAthScheduler {
             
             scheduleContainer.appendChild(dayColumn);
         });
+    }
+
+    // A block's words in the current language: generated blocks keep a translation key, typed ones their own text
+    itemTitle(item) {
+        return item.titleKey ? this.translate(item.titleKey) : item.title;
+    }
+
+    itemDescription(item) {
+        if (!item.descriptionKey) return item.description || '';
+        const text = this.translate(item.descriptionKey);
+        return item.hours !== undefined ? `${item.hours} ${text}` : text;
     }
 
     displayWorkoutPlans() {
@@ -638,7 +635,7 @@ class StuAthScheduler {
             workoutCard.className = 'workout-card';
             
             workoutCard.innerHTML = `
-                <h4>${day} ${this.translate('workout')}</h4>
+                <h4>${this.translate(day)} ${this.translate('workout')}</h4>
                 <ul class="exercise-list">
                     ${this.workoutPlans[day].map(exercise => `<li>${exercise}</li>`).join('')}
                 </ul>
@@ -753,19 +750,20 @@ class StuAthScheduler {
         if (!this.userData) return;
         
         Object.keys(this.userData).forEach(key => {
+            const value = this.userData[key];
+            const checkboxes = document.querySelectorAll(`input[type="checkbox"][name="${key}"]`);
+            if (checkboxes.length) {
+                // Focus areas: no element has that id, so they were never restored before
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = Array.isArray(value) && value.includes(checkbox.value);
+                });
+                return;
+            }
             const element = document.getElementById(key);
             if (element) {
-                if (element.type === 'checkbox') {
-                    // Handle checkboxes
-                    const checkboxes = document.querySelectorAll(`input[name="${key}"]`);
-                    checkboxes.forEach(checkbox => {
-                        if (this.userData[key].includes(checkbox.value)) {
-                            checkbox.checked = true;
-                        }
-                    });
-                } else {
-                    element.value = this.userData[key];
-                }
+                // Classes, practices and games are saved as lists: put them back one per line
+                // (assigning the list joined it with commas, so only the first line was read)
+                element.value = Array.isArray(value) ? value.join('\n') : value;
             }
         });
     }
@@ -794,7 +792,16 @@ function showTab(tabName) {
 function exportSchedule() {
     const scheduleData = {
         userData: window.stuAthScheduler.userData,
-        schedule: window.stuAthScheduler.schedule,
+        // The week is stored with translation keys; write the words out so the file reads on its own
+        schedule: Object.fromEntries(Object.entries(window.stuAthScheduler.schedule).map(([day, items]) => [
+            day,
+            items.map(item => ({
+                time: item.time,
+                title: window.stuAthScheduler.itemTitle(item),
+                type: item.type,
+                description: window.stuAthScheduler.itemDescription(item)
+            }))
+        ])),
         workoutPlans: window.stuAthScheduler.workoutPlans,
         studyPlans: window.stuAthScheduler.studyPlans,
         tips: window.stuAthScheduler.tips

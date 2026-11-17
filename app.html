@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StuAth.ai planner: build your weekly schedule</title>
+    <meta name="description" content="Enter your classes, practices and games to get a weekly schedule with study blocks, workouts and tips.">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#eef0f3">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@400..700&family=Funnel+Sans:wght@400..600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="translations.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html" aria-label="StuAth.ai home"><span class="mark" aria-hidden="true"></span><h1>StuAth.ai</h1></a>
+                </div>
+                <div class="header-controls">
+                    <select id="languageSelector" class="language-selector" title="Select Language" aria-label="Language">
+                        <option value="en">English</option>
+                        <option value="es">Español</option>
+                        <option value="fr">Français</option>
+                        <option value="zh">中文</option>
+                    </select>
+                    <button class="dark-mode-toggle" id="darkModeToggle" title="Toggle Dark Mode" aria-label="Toggle dark mode">
+                        <i class="fas fa-moon" id="darkModeIcon"></i>
+                    </button>
+                </div>
+            </div>
+            <p class="tagline" data-translate="tagline">AI-Powered Scheduling for Student Athletes</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Input Section -->
+            <section class="input-section" id="inputSection">
+                <div class="section-header">
+                    <h2 data-translate="tellUsAboutSchedule">Tell Us About Your Schedule</h2>
+                    <p data-translate="helpUsCreateSchedule">Help us create the perfect schedule by providing your academic and athletic commitments</p>
+                </div>
+
+                <form id="scheduleForm" class="schedule-form">
+                    <!-- Personal Info -->
+                    <div class="form-group">
+                        <h3><i class="fas fa-user"></i> <span data-translate="personalInformation">Personal Information</span></h3>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label for="name" data-translate="name">Name</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-field">
+                                <label for="sport" data-translate="primarySport">Primary Sport</label>
+                                <select id="sport" name="sport" required>
+                                    <option value="" data-translate="selectSport">Select Sport</option>
+                                    <option value="basketball" data-translate="basketball">Basketball</option>
+                                    <option value="football" data-translate="football">Football</option>
+                                    <option value="soccer" data-translate="soccer">Soccer</option>
+                                    <option value="tennis" data-translate="tennis">Tennis</option>
+                                    <option value="swimming" data-translate="swimming">Swimming</option>
+                                    <option value="track" data-translate="trackField">Track & Field</option>
+                                    <option value="baseball" data-translate="baseball">Baseball</option>
+                                    <option value="volleyball" data-translate="volleyball">Volleyball</option>
+                                    <option value="other" data-translate="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Academic Schedule -->
+                    <div class="form-group">
+                        <h3><i class="fas fa-graduation-cap"></i> <span data-translate="academicSchedule">Academic Schedule</span></h3>
+                        <div class="form-field">
+                            <label for="classes" data-translate="classes">Classes (one per line)</label>
+                            <textarea id="classes" name="classes" data-placeholder="classesPlaceholder" rows="4"></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label for="studyHours" data-translate="weeklyStudyHours">Weekly Study Hours</label>
+                                <input type="number" id="studyHours" name="studyHours" min="0" max="50" value="20">
+                            </div>
+                            <div class="form-field">
+                                <label for="academicLevel" data-translate="academicLevel">Academic Level</label>
+                                <select id="academicLevel" name="academicLevel">
+                                    <option value="highschool" data-translate="highSchool">High School</option>
+                                    <option value="undergraduate" data-translate="undergraduate">Undergraduate</option>
+                                    <option value="graduate" data-translate="graduate">Graduate</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Athletic Schedule -->
+                    <div class="form-group">
+                        <h3><i class="fas fa-trophy"></i> <span data-translate="athleticSchedule">Athletic Schedule</span></h3>
+                        <div class="form-field">
+                            <label for="practices" data-translate="practiceSchedule">Practice Schedule (one per line)</label>
+                            <textarea id="practices" name="practices" data-placeholder="practicePlaceholder" rows="3"></textarea>
+                        </div>
+                        <div class="form-field">
+                            <label for="games" data-translate="gamesCompetitions">Games/Competitions (one per line)</label>
+                            <textarea id="games" name="games" data-placeholder="gamesPlaceholder" rows="3"></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label for="trainingLevel" data-translate="trainingIntensity">Training Intensity</label>
+                                <select id="trainingLevel" name="trainingLevel">
+                                    <option value="recreational" data-translate="recreational">Recreational</option>
+                                    <option value="competitive" data-translate="competitive">Competitive</option>
+                                    <option value="elite" data-translate="elite">Elite/Professional</option>
+                                </select>
+                            </div>
+                            <div class="form-field">
+                                <label for="goals" data-translate="athleticGoals">Athletic Goals</label>
+                                <input type="text" id="goals" name="goals" data-placeholder="goalsPlaceholder">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Preferences -->
+                    <div class="form-group">
+                        <h3><i class="fas fa-cog"></i> <span data-translate="preferences">Preferences</span></h3>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label for="wakeTime" data-translate="preferredWakeTime">Preferred Wake Time</label>
+                                <input type="time" id="wakeTime" name="wakeTime" value="07:00">
+                            </div>
+                            <div class="form-field">
+                                <label for="sleepTime" data-translate="preferredSleepTime">Preferred Sleep Time</label>
+                                <input type="time" id="sleepTime" name="sleepTime" value="23:00">
+                            </div>
+                        </div>
+                        <div class="form-field">
+                            <label for="focusAreas" data-translate="focusAreas">Focus Areas (select all that apply)</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="focusAreas" value="academic">
+                                    <span data-translate="academicExcellence">Academic Excellence</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="focusAreas" value="athletic">
+                                    <span data-translate="athleticPerformance">Athletic Performance</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="focusAreas" value="recovery">
+                                    <span data-translate="recoveryWellness">Recovery & Wellness</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="focusAreas" value="social">
+                                    <span data-translate="socialLife">Social Life</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="generate-btn">
+                        <i class="fas fa-magic"></i>
+                        <span data-translate="generateSchedule">Generate My Schedule</span>
+                    </button>
+                </form>
+            </section>
+
+            <!-- Loading Section -->
+            <section class="loading-section" id="loadingSection" style="display: none;">
+                <div class="loading-spinner">
+                    <i class="fas fa-dumbbell fa-spin"></i>
+                </div>
+                <h3 data-translate="creatingSchedule">Creating Your Perfect Schedule...</h3>
+                <p data-translate="aiAnalyzing">Our AI is analyzing your commitments and generating personalized recommendations</p>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section" id="resultsSection" style="display: none;">
+                <div class="section-header">
+                    <h2 data-translate="personalizedSchedule">Your Personalized Schedule</h2>
+                    <div class="action-buttons">
+                        <button class="btn-secondary" onclick="exportSchedule()">
+                            <i class="fas fa-download"></i> <span data-translate="export">Export</span>
+                        </button>
+                        <button class="btn-secondary" onclick="regenerateSchedule()">
+                            <i class="fas fa-refresh"></i> <span data-translate="regenerate">Regenerate</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="schedule-tabs">
+                    <button class="tab-btn active" onclick="showTab('weekly')" data-translate="weeklyOverview">Weekly Overview</button>
+                    <button class="tab-btn" onclick="showTab('workouts')" data-translate="workoutPlans">Workout Plans</button>
+                    <button class="tab-btn" onclick="showTab('study')" data-translate="studyPlans">Study Plans</button>
+                    <button class="tab-btn" onclick="showTab('tips')" data-translate="successTips">Success Tips</button>
+                </div>
+
+                <div class="tab-content">
+                    <div id="weeklyTab" class="tab-pane active">
+                        <div class="schedule-grid" id="weeklySchedule"></div>
+                    </div>
+                    <div id="workoutsTab" class="tab-pane">
+                        <div class="workout-plans" id="workoutPlans"></div>
+                    </div>
+                    <div id="studyTab" class="tab-pane">
+                        <div class="study-plans" id="studyPlans"></div>
+                    </div>
+                    <div id="tipsTab" class="tab-pane">
+                        <div class="success-tips" id="successTips"></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p data-translate="copyright">&copy; 2025 StuAthAI and Colin Liu</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
